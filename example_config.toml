@@ -1,0 +1,25 @@
+[[on_output_added]]
+# the display option is checked against the following strings (in this order):
+#     output.name
+#     output.make
+#     output.model
+#     output.make+' '+output.model
+#     output.make+' '+output.model+' '+output.serial
+display = "AOC 24G11ED 0x00000213"
+exec = "echo"
+args = ["my AOC monitor was connected"]
+
+[[on_output_removed]]
+# The name of the output is piped to the command when it executes.
+exec = "sh"
+args = ["-c", "xargs -- echo removed"] # this prints 'removed '+output.name
+
+[[on_output_changed]]
+exec = "sh"
+args = ["-c", "xargs -- echo changed"]
+
+[[on_output_changed]]
+# you may optionally filter change events by which properties changed:
+changes_to = "scale | current_mode | transform"
+exec = "do_rescale_stuff"
+args = ["-c", "xargs -- echo removed"]
